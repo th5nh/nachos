@@ -51,7 +51,7 @@
 //----------------------------------------------------------------------
 
 // Doi program counter cua he thong ve sau 4 byte de tiep tuc nap lenh
-void increasePC() 
+void IncreasePC() 
 {
     int counter = machine->ReadRegister(PCReg);
     machine->WriteRegister(PrevPCReg, counter);
@@ -112,63 +112,60 @@ void ExceptionHandler(ExceptionType which)
     switch(which) 
     {
 	case NoException:
- 	    return;
+	    return;
 
 	case PageFaultException:
 	    DEBUG('a', "\n No valid translation found.");
 	    printf("\n\n No valid translation found.");
-   	    interrupt->Halt();
- 	    break;
+	    interrupt->Halt();
+	    break;
 
 	case ReadOnlyException:
 	    DEBUG('a', "\n Write attempted to page marked read-only.");
 	    printf("\n\n Write attempted to page marked read-only.");
-   	    interrupt->Halt();
+	    interrupt->Halt();
 	    break;
-	    
+
 	case BusErrorException:
-	    DEBUG('a', "\n Translation resulted in an invalid physical address.");
-	    printf("\n\n Translation resulted in an invalid physical address.");
-   	    interrupt->Halt();     
+	    DEBUG('a', "\n Translation resulted invalid physical address.");
+	    printf("\n\n Translation resulted invalid physical address.");
+	    interrupt->Halt();
 	    break;
-			    
+
 	case AddressErrorException:
 	    DEBUG('a', "\n Unaligned reference or one that was beyond the end of the address space.");
 	    printf("\n\n Unaligned reference or one that was beyond the end of the address space.");
-   	    interrupt->Halt(); 
+	    interrupt->Halt();
 	    break;
-			    
+
 	case OverflowException:
-	    DEBUG('a', "\n Integer overflow in add or sub.");
+	    DEBUG('a', "\nInteger overflow in add or sub.");
 	    printf("\n\n Integer overflow in add or sub.");
-   	    interrupt->Halt();
-	    break; 
+	    interrupt->Halt();
+	    break;
 
 	case IllegalInstrException:
 	    DEBUG('a', "\n Unimplemented or reserved instr.");
 	    printf("\n\n Unimplemented or reserved instr.");
-   	    interrupt->Halt(); 
+	    interrupt->Halt();
 	    break;
-  
+
 	case NumExceptionTypes:
 	    DEBUG('a', "\n Number exception types.");
 	    printf("\n\n Number exception types.");
-   	    interrupt->Halt(); 
+	    interrupt->Halt();
 	    break;
 
         case SyscallException:
             switch (type)
             {
 		case SC_Halt:
-		    // Input: Khong co
-		    // Output: Thong bao tat may
-		    // Chuc nang: Tat HDH
 		    DEBUG('a', "\n Shutdown, initiated by user program.");
-		    printf("\n Shutdown, initiated by user program.");
+		    printf("\n\n Shutdown, initiated by user program.");
 		    interrupt->Halt();
-		    return;
+		    break; 
 
-                case SC_Exec:
+                 /*case SC_Exec:
 		    // Input: Vi tri int
 		    // Output: Fail: return -1, Success: return id cua thread dang chay
 		    // SpaceId Exec(char *name);
@@ -179,11 +176,10 @@ void ExceptionHandler(ExceptionType which)
 	
 		    if(name == NULL)
 		    {
-			DEBUG('a', "\n Not enough memory in System.");
 			printf("\n Not enough memory in System.");
 			machine->WriteRegister(2, -1);
 			// IncreasePC();
-			return;
+			break;
 		    }
 		    OpenFile *oFile = fileSystem->Open(name);
 		    if (oFile == NULL)
@@ -191,7 +187,7 @@ void ExceptionHandler(ExceptionType which)
 			printf("\n Exec:: Can't open this file.");
 			machine->WriteRegister(2, -1);
 			IncreasePC();
-			return;
+			break;
 		    }
 
 		    delete oFile;
@@ -202,7 +198,7 @@ void ExceptionHandler(ExceptionType which)
 
 		    delete[] name;	
 		    IncreasePC();
-		    return;
+		    break;
 		
 		case SC_Exit:
 		    // void Exit(int status);
@@ -212,7 +208,7 @@ void ExceptionHandler(ExceptionType which)
 		    if(exitStatus != 0)
 		    {
 		        IncreasePC();
-			return;
+			break;
 				
 		    }			
 			
@@ -222,15 +218,20 @@ void ExceptionHandler(ExceptionType which)
 		    currentThread->FreeSpace();
 		    currentThread->Finish();
 		    IncreasePC();
-		    return;
-		
-		default:
-		    break;	
+		    break;*/
+
+		case SC_Sub:
+		    int op1 = machine->ReadRegister(4);
+		    int op2 = machine->ReadRegister(5);
+		    int result = op1 - op2;
+		    machine->WriteRegister(2, result);
+		    interrupt->Halt();
+ 		    break;	
             }
 	    IncreasePC();
  
 	default:
-	    printf("\nUnexpected user mode exception (%d %d)", which, type);
- 	    interrupt->Halt(); 
+	    printf("\n Unexpected user mode exception (%d %d)", which, type);
+	    interrupt->Halt(); 
     }
 }
