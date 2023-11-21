@@ -175,12 +175,18 @@ ExceptionHandler(ExceptionType which)
 		case SC_Yield:
 			break;
 		case SC_Sub:
+		{
 			printf("\nHello Sub\n");
+			int op1 = machine->ReadRegister(4);
+			int op2 = machine->ReadRegister(5);
+			int result = op1 - op2;
+			machine->WriteRegister(2, result);
 			interrupt->Halt();
 			break;
+		}
 		default:
 			printf("Unexpected user mode exception %d %d\n", which, type);
-               		ASSERT(FALSE);
+	               	ASSERT(FALSE);
                 	break;
 		}
 		increasePC();
