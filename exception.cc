@@ -238,25 +238,7 @@ void ExceptionHandler(ExceptionType which)
                     	//Kiem tra so co hop le khong
                     	for(int i = head; i < length; i++)					
                     	{
-				//Neu co xuat hien dau cham
-				if(numberchar[i] == '.')
-				{
-					//Kiem tra sau dau cham co so nao khac so 0 khong
-					for(int j = i + 1; j < length; j++)
-					{
-						if(numberchar[j]!='0')
-						{
-							printf("\n\n Khong phai so nguyen");
-                            				DEBUG('a', "\n Khong phai so nguyen");
-							//Tra ve thanh ghi r2 so 0 mac dinh
-                            				machine->WriteRegister(2, 0);
-                            				IncreasePC();
-                            				delete numberchar;
-                            				return;
-						}
-					}
-					tail = i - 1;
-				}
+				
 				//Kiem tra co xuat hien ki tu khac ky tu so khong
                         	if(numberchar[i] < '0' && numberchar[i] > '9')
                         	{
