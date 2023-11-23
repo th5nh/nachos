@@ -208,7 +208,7 @@ void ExceptionHandler(ExceptionType which)
 			delete filename; 
 			break;		
 		}
-
+		
 		case SC_ReadInt:
 		{
 			//Chuoi luu so dang char
@@ -240,10 +240,10 @@ void ExceptionHandler(ExceptionType which)
                     	{
 				
 				//Kiem tra co xuat hien ki tu khac ky tu so khong
-                        	if(numberchar[i] < '0' && numberchar[i] > '9')
+                        	if(numberchar[i] < '0' || numberchar[i] > '9')
                         	{
-                            		printf("\n\n Khong phai so nguyen");
-                            		DEBUG('a', "\n Khong phai so nguyen");
+                            		printf("\n Khong phai so nguyen, tra ve so 0 mac dinh");
+                            		DEBUG('a', "\n Khong phai so nguyen, tra ve so 0 mac dinh");
 					//Tra ve thanh ghi r2 so 0 mac dinh
                             		machine->WriteRegister(2, 0);
                             		IncreasePC();
@@ -274,13 +274,7 @@ void ExceptionHandler(ExceptionType which)
 		{	
 		    	//Doc so tu thanh ghi r4
                     	int number = machine->ReadRegister(4);
-			//Neu la so 0 thi in ra man hinh (so 0 la mac dinh)
-		   	if(number == 0)
-                   	{
-                        	gSynchConsole->Write("0", 1); 
-                        	IncreasePC();
-                        	return;    
-                    	}                    
+			                   
                     	
 			//Mac dinh la so duong
                     	bool isNegative = false; 
@@ -330,19 +324,20 @@ void ExceptionHandler(ExceptionType which)
 					numberchar[length - i] = reverse[i];
 				
 				}
-				//numberchar[numberOfNum + 1] = 0;
+				//In so ra man hinh
                         	gSynchConsole->Write(numberchar, length + 1);
                         	delete numberchar;
                         	IncreasePC();
                         	return;
                     	}
 
-		    	//numberchar[numberOfNum] = 0;	
+		    	
 			for(int i = 0; i < length; i++)
 			{
 				numberchar[length - i - 1] = reverse[i];
 				
 			}
+			//In so ra man hinh
                     	gSynchConsole->Write(numberchar, length);
                     	delete numberchar;
                     	IncreasePC();
@@ -351,6 +346,7 @@ void ExceptionHandler(ExceptionType which)
 		}
 		
 		default:
+			IncreasePC();
 			break;
 		}
 		IncreasePC();
