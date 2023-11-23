@@ -275,7 +275,12 @@ void ExceptionHandler(ExceptionType which)
 		    	//Doc so tu thanh ghi r4
                     	int number = machine->ReadRegister(4);
 			                   
-                    	
+                    	if(number == 0)
+                    	{
+                        	gSynchConsole->Write("0", 1); // In ra man hinh so 0
+                        	IncreasePC();
+                        	return;    
+                    	}
 			//Mac dinh la so duong
                     	bool isNegative = false; 
 			//Do dai so
