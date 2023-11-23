@@ -147,7 +147,41 @@ ExceptionHandler(ExceptionType which)
 				delete filename;
 				break;
 			}
+
+			case SC_ReadChar:
+			    {
+				    // Tao buffer de doc size 255
+				    char* buffer = new char[255];
+				    int len = gSynchConsole->Read(buffer, 255);
 	
+	                // Xu ly loi khi doc
+				    if(len == -1)
+				    {
+					    printf("Doc ki tu bi loi");
+					    DEBUG('a', "\nERROR: reading char.");
+					    break;
+				    }
+				    
+	
+					// Ghi ki tu vua doc vao thanh ghi r2
+					char c = buffer[0];
+					machine->WriteRegister(2, c);
+	
+				    delete buffer; // giai phong vung cap phat
+				    IncreasePC();
+				    return;
+			    }
+	
+			    case SC_PrintChar:
+			    {
+				    // Doc ki tu o thanh ghi r4
+				    char c = (char)machine->ReadRegister(4);
+	                   
+	                // In ra console
+				    gSynchConsole->Write(&c, 1);
+				    IncreasePC();
+	                return;
+			    }
 
 			case SC_ReadString:
 			{
