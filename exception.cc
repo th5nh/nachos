@@ -293,6 +293,7 @@ void ExceptionHandler(ExceptionType which)
 	
                     	//Bien tam de dem do dai so
                     	int temp = number;
+			//Dem do dai 
                     	while(temp > 0)
                     	{
                         	length = length + 1;
@@ -321,8 +322,7 @@ void ExceptionHandler(ExceptionType which)
 				//Dao lai chuoi
 				for(int i = 0; i < length; i++)
 				{
-					numberchar[length - i] = reverse[i];
-				
+					numberchar[length - i] = reverse[i];				
 				}
 				//In so ra man hinh
                         	gSynchConsole->Write(numberchar, length + 1);
@@ -331,11 +331,10 @@ void ExceptionHandler(ExceptionType which)
                         	return;
                     	}
 
-		    	
+		    	//Dao lai chuoi
 			for(int i = 0; i < length; i++)
 			{
-				numberchar[length - i - 1] = reverse[i];
-				
+				numberchar[length - i - 1] = reverse[i];				
 			}
 			//In so ra man hinh
                     	gSynchConsole->Write(numberchar, length);
