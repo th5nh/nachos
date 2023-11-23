@@ -32,6 +32,9 @@
 
 #define SC_ReadString 	11
 #define SC_PrintString	12
+#define SC_ReadChar 	11
+#define SC_PrintChar	12
+
 
 #ifndef IN_ASM
 
@@ -128,8 +131,9 @@ void Fork(void (*func)());
 void Yield();
 
 void ReadString(char buffer[], int length);
-
-void PrintString(char buffer[]);		
+void PrintString(char buffer[]);
+char ReadChar();
+void PrintChar(char c);		
 
 #endif /* IN_ASM */
 
