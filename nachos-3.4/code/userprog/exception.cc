@@ -162,8 +162,14 @@ void ExceptionHandler(ExceptionType which)
 
             bufferAddr = machine->ReadRegister(4);                  // Get the address of the 'buffer' parameter from register 4
             maxStringLengthInput = machine->ReadRegister(5);             // Get the maximum length of the input string from register 5
+	    if(length > MAX_STRING_LENGTH) {
+		DEBUG('a', "\n Not enough buffer to read tring");
+        	printf("\n Not enough buffer to read tring");
+		IncreasePC();
+		return;
+	    }
             inputBuffer = User2System(bufferAddr, maxStringLengthInput); // Copy the string from User Space to System Space
-
+		
             gSynchConsole->Read(inputBuffer, maxStringLengthInput); // Use SynchConsole's Read function to read the string
 
             System2User(bufferAddr, maxStringLengthInput, inputBuffer); // Copy the string from System Space to User Space
@@ -186,6 +192,8 @@ void ExceptionHandler(ExceptionType which)
             while (inputBuffer[length] != 0)
                 length++; // Calculate the actual length of the string
 	if(length > MAX_STRING_LENGTH) {
+		DEBUG('a', "\n Not enough buffer to printString");
+        	printf("\n Not enough buffer to printString");
 		IncreasePC();
 		return;
 	}
