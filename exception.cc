@@ -242,8 +242,8 @@ void ExceptionHandler(ExceptionType which)
 				//Kiem tra co xuat hien ki tu khac ky tu so khong
                         	if(numberchar[i] < '0' || numberchar[i] > '9')
                         	{
-                            		printf("\n Khong phai so nguyen, tra ve so 0 mac dinh");
-                            		DEBUG('a', "\n Khong phai so nguyen, tra ve so 0 mac dinh");
+                            		printf("\n\n (Khong phai so nguyen, tra ve so 0 mac dinh)");
+                            		DEBUG('a', "\n\n (Khong phai so nguyen, tra ve so 0 mac dinh)");
 					//Tra ve thanh ghi r2 so 0 mac dinh
                             		machine->WriteRegister(2, 0);
                             		IncreasePC();
