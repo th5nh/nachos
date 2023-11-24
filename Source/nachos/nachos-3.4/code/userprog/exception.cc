@@ -165,7 +165,7 @@ ExceptionHandler(ExceptionType which)
 			//Do dai duoc doc
                     	int length = gSynchConsole->Read(numberchar, MAX_BUFFER);
 			//Khoi tao so nguyen bang 0
-                    	int number = 0;
+                    	int number = 0;	
                         //Mac dinh la so duong
                     	bool isNegative = false;
 			//Vi tri bat dau cua so, mac dinh la 0
@@ -187,27 +187,26 @@ ExceptionHandler(ExceptionType which)
 				//Kiem tra co xuat hien ki tu khac ky tu so khong
                         	if(numberchar[i] < '0' || numberchar[i] > '9')
                         	{
-                            		printf("\n Khong phai so nguyen, tra ve so 0 mac dinh");
-                            		DEBUG('a', "\n Khong phai so nguyen, tra ve so 0 mac dinh");
+					printf("\n (Khong phai so nguyen, tra ve so 0 mac dinh)");
+                            		DEBUG('a', "\n (Khong phai so nguyen, tra ve so 0 mac dinh)");
 					//Tra ve thanh ghi r2 so 0 mac dinh
                             		machine->WriteRegister(2, 0);
                             		IncreasePC();
                             		delete numberchar;
                             		return;
-                    		}
+                        	}
                     	}
-
-             		//Chuyen so tu char sang int
-                    	for(int i = head; i<= tail; i++)
+			//Chuyen so tu char sang int
+			for(int i = head; i<= tail; i++)
                     	{
                         	number = number * 10 + (int)(numberchar[i] - 48);
                     	}
-
                     	//Chuyen thanh so am neu co
                     	if(isNegative)
                     	{
                         	number = number * -1;
                     	}
+
 			//Tra ve thanh ghi r2
                     	machine->WriteRegister(2, number);
                     	IncreasePC();
@@ -218,17 +217,20 @@ ExceptionHandler(ExceptionType which)
 		{
 		    	//Doc so tu thanh ghi r4
                     	int number = machine->ReadRegister(4);
+			//In ra luon neu la so 0
 			if(number == 0)
                     	{
-                        	gSynchConsole->Write("0", 1); // In ra man hinh so 0
+                        	gSynchConsole->Write("0", 1);
                         	IncreasePC();
                         	return;
                     	}
+
 			//Mac dinh la so duong
                     	bool isNegative = false;
 			//Do dai so
                     	int length = 0;
                     	int head = 0;
+
 			//Kiem tra so co am khong
                     	if(number < 0)
                     	{
@@ -239,7 +241,7 @@ ExceptionHandler(ExceptionType which)
                         	head = 1;
                     	}
 
-                    	//Bien tam de dem do dai so
+			//Bien tam de dem do dai so
                     	int temp = number;
 			//Dem do dai
                     	while(temp > 0)
@@ -254,6 +256,7 @@ ExceptionHandler(ExceptionType which)
 			char* reverse;
 			//Do dai toi da cua so
                     	int MAX_BUFFER = 256;
+
                     	numberchar = new char[MAX_BUFFER];
 			reverse = new char[MAX_BUFFER];
 
@@ -263,6 +266,7 @@ ExceptionHandler(ExceptionType which)
                         	reverse[i] = (char)((number % 10) + 48);
                         	number = number / 10;
                     	}
+
                     	if(isNegative)
                     	{
 				//Them dau tru
@@ -272,6 +276,7 @@ ExceptionHandler(ExceptionType which)
 				{
 					numberchar[length - i] = reverse[i];
 				}
+
 				//In so ra man hinh
                         	gSynchConsole->Write(numberchar, length + 1);
                         	delete numberchar;
@@ -284,6 +289,7 @@ ExceptionHandler(ExceptionType which)
 			{
 				numberchar[length - i - 1] = reverse[i];
 			}
+
 			//In so ra man hinh
                     	gSynchConsole->Write(numberchar, length);
                     	delete numberchar;
