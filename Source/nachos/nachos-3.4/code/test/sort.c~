@@ -13,22 +13,21 @@ int
 main()
 {
 	int A[100];	/* size of physical memory; with code, we'll run out of space!*/
-	int i, j, tmp, n;
-
-	PrintString("\n\t\t -------- SORT -------\n");
-	PrintString("\n[.] Nhap n: ");
-	n = ReadInt();
-	PrintString("[.] Bat dau nhap mang:\n");
+	int i, j, tmp, n, x;
+	PrintString("\nNhap n: ");
+	n=ReadInt();
+	PrintString("\nBat dau nhap mang:\n");
 
     	/* first initialize the array, in reverse sorted order */
-    	for (i = 0; i < n; i++)
-	{
-		A[i] = ReadInt();
+    	for (i = 0; i < n; i++)	
+	{	
+       		x = ReadInt();
+		A[i] = x;
 	}
+	
+	PrintString("\nMang cua ban: ");
 
-	PrintString("\n# Mang cua ban: ");
-
-	for (i = 0; i < n; i++) {
+	for (i = 0; i < n; i++) {	
 		PrintInt(A[i]);
 		PrintChar(' ');
 	}
@@ -36,16 +35,16 @@ main()
     	// Bubble sort
     	for (i = 0; i < n-1; i++) {
         	for (j = i + 1; j < n; j++) {
-	   		if (A[i] > A[j]) {
+	   		if (A[i] > A[j]) {	
 	      			tmp = A[i];
 	      			A[i] = A[j];
 	      			A[j] = tmp;
     	   		}
 		}
 	}
-
-	PrintString("\n# Mang da sap xep: ");
-	for (i = 0; i < n; i++) {
+	
+	PrintString("\nMang da sap xep: ");
+	for (i = 0; i < n; i++) {	
 		PrintInt(A[i]);
 		PrintChar(' ');
 	}

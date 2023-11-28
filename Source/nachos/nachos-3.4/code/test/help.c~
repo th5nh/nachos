@@ -1,0 +1,80 @@
+#include "syscall.h" 
+#include "copyright.h" 
+
+#define maxlen 32 
+
+int main() 
+{ 
+/*	int number;
+	PrintString("\n Nhap so:");
+	number=ReadInt();
+//	number = 'A';
+	PrintString("So la: ");
+	PrintInt(number);
+	return 0;
+//	char c;
+//	PrintString("Nhap mot ki tu: ");
+//	c = ReadChar();
+//	PrintString("Ki tu vua nhap la: ");
+//	PrintChar(c);
+
+/*	char input[256];
+	ReadString(input, 256);
+
+	PrintString("String la: ");
+	PrintString(input);
+
+	const char* helpTable =
+    "\nChao mung den voi chuong trinh cua chung toi!\n"
+                          "Chuong trinh nay bao gom cac tinh nang sau:\n"
+                          "- Sap xep mot mang n so nguyen bang thuat toan Bubble Sort.\n"
+                          "- Hien thi bang ma ASCII.\n"
+                          "Voi gioi han so nguyen n khong vuot qua 100.\n"
+                          "Chung toi la mot nhom gom 5 thanh vien.";
+
+	int len; 
+	PrintString("\n\t\t\t-----HELP TRONG NACHOS-----\n\n");
+	PrintString(helpTable);
+	//Halt(); */
+	    int A[1024];	/* size of physical memory; with code, we'll run out of space!*/
+    int i, j, tmp, tmp1, n;
+
+    /* first initialize the array, in reverse sorted order */
+    //for (i = 0; i < 1024; i++)		
+    //    A[i] = 1024 - i;
+
+    PrintString("Input n: ");
+    n = ReadInt();
+    PrintString("Input elements\n");
+    PrintString("Input elements\n");
+    for (i = 0; i < n; i++) {
+	tmp1 = ReadInt();
+        A[i] = tmp1;
+        PrintString("Hello\n");
+    }
+
+    PrintString("Your array: ");
+
+    for (i = 0; i < n; i++) {		
+        PrintInt(A[i]);
+	PrintChar(' ');
+    }
+
+    /* then sort! */
+    for (i = 0; i < 1023; i++)
+        for (j = i; j < (1023 - i); j++)
+	   if (A[j] > A[j + 1]) {	/* out of order -> need to swap ! */
+	      tmp = A[j];
+	      A[j] = A[j + 1];
+	      A[j + 1] = tmp;
+    	   }
+
+    PrintString("\nSorted Array: ");
+    
+    for (i = 0; i < n; i++) {		
+        PrintInt(A[i]);
+        PrintChar(' ');
+    }
+   // Exit(A[0]);		/* and then we're done -- should be 0! */
+	return 0;
+}
